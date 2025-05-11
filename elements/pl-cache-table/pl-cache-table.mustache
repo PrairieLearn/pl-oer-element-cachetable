@@ -1,0 +1,601 @@
+{{^is_material}}
+{{#question}}
+    <div class="c-tbl-block">
+    <div>
+        {{#show-percentage-score}}
+        <span style="width: 100%; justify-content: center;"> 
+            {{#all_correct}}
+                <span class="badge badge-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span>
+            {{/all_correct}}
+            {{#all_incorrect}}
+                <span class="badge badge-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span>
+            {{/all_incorrect}}
+            {{#all_partial}}
+                {{#score}}<span class="badge badge-warning badge-large">{{score}}%</span>{{/score}}
+            {{/all_partial}}
+        </span>
+        {{/show-percentage-score}}
+        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" {{#blocks}}style="border-collapse:separate"{{/blocks}} border="1">
+            <thead>
+                <tr>
+                    {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
+                    {{#has_lru}}
+                        {{#way_list}}
+                            <th colspan="{{way_display_width}}" class="block-edge">Way {{number}}</th>
+                        {{/way_list}}
+                    {{/has_lru}}
+                    {{#has_lru}}
+                            <th rowspan="2" class="block-edge">LRU FSM</th>
+                        </tr>
+                        <tr>
+                    {{/has_lru}}
+                    {{#way_list}}
+                        <th class="block-edge">Tag</th>
+                        {{#show_valid}}
+                            <th>Valid</th>
+                        {{/show_valid}}
+                        {{#show_dirty}}
+                            <th>Dirty</th>
+                        {{/show_dirty}}
+                        {{#block_list}}
+                            <th>Off {{offset}}</th>
+                        {{/block_list}}
+                    {{/way_list}}
+                </tr>                    
+            </thead>
+            <tbody>
+                {{#cache_sets}}
+                    <tr>
+                        {{^fully_assoc}}<td>{{index}}</td>{{/fully_assoc}}
+                        {{#ways}}
+                            <td class="block-edge"{{#block_correct}}style="border-left: 2px green dotted; border-bottom: 2px green dotted; border-top: 2px green dotted;"{{/block_correct}}{{#block_incorrect}}style="border-left: 2px red solid; border-bottom: 2px red solid; border-top: 2px red solid;"{{/block_incorrect}}>
+                                <div class="result-container">
+                                    <input type="text"
+                                        name="{{tag_name}}"
+                                        class="form-control"
+                                        {{#raw_sub_tag}}value="{{raw_sub_tag}}"{{/raw_sub_tag}}{{^raw_sub_tag}}{{#initial_tag}}value="{{initial_tag}}"{{/initial_tag}}{{/raw_sub_tag}}
+                                        data-prefill="{{initial_tag}}"
+                                        placeholder="{{initial_tag}}"
+                                        style="width:{{tag_width}}px; {{#tag_correct}}border: 2px green dotted;{{/tag_correct}}{{#tag_incorrect}}border: 2px red solid;{{/tag_incorrect}}"
+                                        >
+                                    </input>
+                                    <span class="input-group-append">
+                                        {{#tag_input_error}}
+                                            <button
+                                                type="button"
+                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                data-toggle="popover"
+                                                data-html="true"
+                                                title="Format Error"
+                                                data-placement="auto"
+                                                data-content="{{tag_input_error}}"
+                                            >
+                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            </button>
+                                        {{/tag_input_error}}
+                                    </span>
+                                </div>
+                            </td>
+                            {{#show_valid}}
+                                <td {{#block_correct}}style="border-bottom: 2px green dotted; border-top: 2px green dotted;"{{/block_correct}}{{#block_incorrect}}style="border-bottom: 2px red solid; border-top: 2px red solid;"{{/block_incorrect}}>
+                                    <div class="result-container">
+                                        <input type="text"
+                                            name="{{valid_name}}"
+                                            class="form-control"
+                                            {{#raw_sub_valid}}value="{{raw_sub_valid}}"{{/raw_sub_valid}}{{^raw_sub_valid}}{{#initial_valid}}value="{{initial_valid}}"{{/initial_valid}}{{/raw_sub_valid}}
+                                            data-prefill="{{initial_valid}}"
+                                            style="width:20px; {{#valid_correct}}border: 2px green dotted;{{/valid_correct}}{{#valid_incorrect}}border: 2px red solid;{{/valid_incorrect}}"
+                                            placeholder="{{initial_valid}}"
+                                        >
+                                        </input>
+                                    <span class="input-group-append">
+                                        {{#valid_input_error}}
+                                            <button
+                                                type="button"
+                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                data-toggle="popover"
+                                                data-html="true"
+                                                title="Format Error"
+                                                data-placement="auto"
+                                                data-content="{{valid_input_error}}"
+                                            >
+                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            </button>
+                                        {{/valid_input_error}}
+                                    </span>
+                                    </div>
+                                </td>
+                            {{/show_valid}}
+                            {{#show_dirty}}
+                                <td {{#block_correct}}style="border-bottom: 2px green dotted; border-top: 2px green dotted;"{{/block_correct}}{{#block_incorrect}}style="border-bottom: 2px red solid; border-top: 2px red solid;"{{/block_incorrect}}>
+                                    <div class="result-container">
+                                        <input type="text"
+                                            name="{{dirty_name}}"
+                                            class="form-control"
+                                            {{#raw_sub_dirty}}value="{{raw_sub_dirty}}"{{/raw_sub_dirty}}{{^raw_sub_dirty}}{{#initial_dirty}}value="{{initial_dirty}}"{{/initial_dirty}}{{/raw_sub_dirty}}
+                                            data-prefill="{{initial_dirty}}"
+                                            style="width:20px; {{#dirty_correct}}border: 2px green dotted;{{/dirty_correct}}{{#dirty_incorrect}}border: 2px red solid;{{/dirty_incorrect}}"
+                                            placeholder="{{initial_dirty}}"
+                                        >
+                                        </input>
+                                    <span class="input-group-append">
+                                        {{#dirty_input_error}}
+                                            <button
+                                                type="button"
+                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                data-toggle="popover"
+                                                data-html="true"
+                                                title="Format Error"
+                                                data-placement="auto"
+                                                data-content="{{dirty_input_error}}"
+                                            >
+                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            </button>
+                                        {{/dirty_input_error}}
+                                    </span>
+                                    </div>
+                                </td>
+                            {{/show_dirty}}
+                            {{#block}}
+                                <td {{#block_correct}}style="border-bottom: 2px green dotted; border-top: 2px green dotted; {{#last_data}} border-right: 2px green dotted;{{/last_data}}" {{/block_correct}}style="{{#block_incorrect}}border-bottom: 2px red solid; border-top: 2px red solid;{{#last_data}} border-right: 2px red solid;{{/last_data}}{{/block_incorrect}}">
+                                    <div class="result-container">
+                                        <input type="text"
+                                            name="{{data_name}}"
+                                            class="form-control"
+                                            {{#raw_sub_data}}value="{{raw_sub_data}}"{{/raw_sub_data}}{{^raw_sub_data}}{{#initial_data}}value="{{initial_data}}"{{/initial_data}}{{/raw_sub_data}}
+                                            data-prefill="{{initial_data}}"
+                                            style="width:40px; {{#data_correct}}border: 2px green dotted;{{/data_correct}}{{#data_incorrect}}border: 2px red solid;{{/data_incorrect}}"
+                                            placeholder="{{initial_data}}">
+                                        </input>
+                                        <span class="input-group-append">
+                                            {{#data_input_error}}
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                    data-toggle="popover"
+                                                    data-html="true"
+                                                    title="Format Error"
+                                                    data-placement="auto"
+                                                    data-content="{{data_input_error}}"
+                                                >
+                                                    <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                </button>
+                                            {{/data_input_error}}
+                                        </span>
+                                    </div>
+                                </td>
+                            {{/block}}
+
+                        {{/ways}}
+                        {{#has_lru}}
+                            <td class="block-edge" {{#all_lru_correct}}style="border: 2px green dotted;"{{/all_lru_correct}}{{#all_lru_incorrect}}style="border: 2px red solid;"{{/all_lru_incorrect}}>[{{#lru}}<span class="form-inline d-inline-block ml-0"><div class="result-container"><input 
+                                        type="text"
+                                        name="{{lru_name}}"
+                                        class="form-control"
+                                        {{#raw_sub_lru}}value="{{raw_sub_lru}}"{{/raw_sub_lru}}{{^raw_sub_lru}}{{#initial_lru}}value="{{{initial_lru}}}"{{/initial_lru}}{{/raw_sub_lru}}
+                                        data-prefill="{{{initial_lru}}}"
+                                        style="width:15px; {{#lru_correct}}border: 2px green dotted;{{/lru_correct}}{{#lru_incorrect}}border: 2px red solid;{{/lru_incorrect}}"
+                                        placeholder="{{initial_lru}}">
+                                </input><span class="input-group-append">
+                                        {{#lru_input_error}}
+                                            <button
+                                                type="button"
+                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                data-toggle="popover"
+                                                data-html="true"
+                                                title="Format Error"
+                                                data-placement="auto"
+                                                data-content="{{lru_input_error}}"
+                                            >
+                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            </button>
+                                        {{/lru_input_error}}</span></div></span>{{#comma}},{{/comma}}{{/lru}}]</td>
+                        {{/has_lru}}
+                    </tr>
+                {{/cache_sets}}
+            </tbody>
+        </table>
+        <div class="d-flex reset-button-container">
+            <button
+                type="button"
+                class="btn-sm cache-info-button align-items-center "
+                data-toggle="popover"
+                title="Grading Method"
+                data-html="true"
+                data-content="{{{grade-info}}}"
+                data-placement="auto">
+                <i class="fa fa-question-circle" aria-hidden="true"></i>
+            </button>
+            <button
+                type="button"
+                class="btn btn-outline-danger btn-sm reset-button"
+                data-table-uuid="{{uuid}}"
+            >
+                Reset Cache
+            </button>
+            <div class="reset-confirm-container" style="display: none;">
+                <button type="button" class="btn btn-secondary btn-sm reset-cancel">
+                    Cancel
+                </button>
+                <button type="button" class="btn btn-success btn-sm reset-confirm">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
+{{/question}}
+{{#submission}}
+    <div class="c-tbl-block">
+        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" {{#blocks}}style="border-collapse:separate"{{/blocks}} border="1">
+            <thead>
+                <tr>
+                    {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
+                    {{#has_lru}}
+                        {{#way_list}}
+                            <th colspan="{{way_display_width}}" class="block-edge">Way {{number}}</th>
+                        {{/way_list}}
+                    {{/has_lru}}
+                    {{#has_lru}}
+                            <th rowspan="2" class="block-edge">LRU FSM</th>
+                        </tr>
+                        <tr>
+                    {{/has_lru}}
+                    {{#way_list}}
+                        <th class="block-edge">Tag</th>
+                        {{#show_valid}}
+                            <th>Valid</th>
+                        {{/show_valid}}
+                        {{#show_dirty}}
+                            <th>Dirty</th>
+                        {{/show_dirty}}
+                        {{#block_list}}
+                            <th>Off {{offset}}</th>
+                        {{/block_list}}
+                    {{/way_list}}
+                </tr>
+            </thead>
+            <tbody>
+                {{#cache_sets}}
+                    <tr>
+                        {{^fully_assoc}}<td>{{index}}</td>{{/fully_assoc}}
+                        {{#ways}}
+                            <td class="block-edge" {{#block_correct}}style="border-left: 2px green dotted; border-bottom: 2px green dotted; border-top: 2px green dotted;"{{/block_correct}}{{#block_incorrect}}style="border-left: 2px red solid; border-bottom: 2px red solid; border-top: 2px red solid;"{{/block_incorrect}}>
+                                <code class="{{#tag_correct}}user-output-correct"{{/tag_correct}}{{#tag_incorrect}}user-output-incorrect"{{/tag_incorrect}}{{^tag_correct}}{{^tag_incorrect}}user-output{{/tag_incorrect}}{{/tag_correct}}">{{raw_sub_tag}}</code>
+                                <span class="input-group-append">
+                                    {{#tag_input_error}}
+                                        <button
+                                            type="button"
+                                            class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                            data-toggle="popover"
+                                            data-html="true"
+                                            title="Format Error"
+                                            data-placement="auto"
+                                            data-content="{{tag_input_error}}"
+                                        >
+                                            <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                        </button>
+                                    {{/tag_input_error}}
+                                </span>
+                            </td>
+                            {{#show_valid}}
+                                <td {{#block_correct}}style="border-bottom: 2px green dotted; border-top: 2px green dotted;"{{/block_correct}}{{#block_incorrect}}style="border-bottom: 2px red solid; border-top: 2px red solid;"{{/block_incorrect}}>
+                                    <code class="{{#valid_correct}}user-output-correct"{{/valid_correct}}{{#valid_incorrect}}user-output-incorrect"{{/valid_incorrect}}{{^valid_correct}}{{^valid_incorrect}}user-output{{/valid_incorrect}}{{/valid_correct}}">{{raw_sub_valid}}</code>
+                                    <span class="input-group-append">
+                                        {{#valid_input_error}}
+                                            <button
+                                                type="button"
+                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                data-toggle="popover"
+                                                data-html="true"
+                                                title="Format Error"
+                                                data-placement="auto"
+                                                data-content="{{valid_input_error}}"
+                                            >
+                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            </button>
+                                        {{/valid_input_error}}
+                                    </span>
+                                </td>
+                            {{/show_valid}}
+                            {{#show_dirty}}
+                                <td {{#block_correct}}style="border-bottom: 2px green dotted; border-top: 2px green dotted;"{{/block_correct}}{{#block_incorrect}}style="border-bottom: 2px red solid; border-top: 2px red solid;"{{/block_incorrect}}>
+                                    <code class="{{#dirty_correct}}user-output-correct"{{/dirty_correct}}{{#dirty_incorrect}}user-output-incorrect"{{/dirty_incorrect}}{{^dirty_correct}}{{^dirty_incorrect}}user-output{{/dirty_incorrect}}{{/dirty_correct}}">{{raw_sub_dirty}}</code>
+                                    <span class="input-group-append">
+                                        {{#dirty_input_error}}
+                                            <button
+                                                type="button"
+                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                data-toggle="popover"
+                                                data-html="true"
+                                                title="Format Error"
+                                                data-placement="auto"
+                                                data-content="{{dirty_input_error}}"
+                                            >
+                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            </button>
+                                        {{/dirty_input_error}}
+                                    </span>
+                                </td>
+                            {{/show_dirty}}
+                            {{#block}}
+                                <td {{#block_correct}}style="border-bottom: 2px green dotted; border-top: 2px green dotted;{{#last_data}} border-right: 2px green dotted;{{/last_data}}"{{/block_correct}}style="{{#block_incorrect}}border-bottom: 2px red solid; border-top: 2px red solid;{{#last_data}} border-right: 2px red solid;{{/last_data}}{{/block_incorrect}}">
+                                    <code class="{{#data_correct}}user-output-correct"{{/data_correct}}{{#data_incorrect}}user-output-incorrect"{{/data_incorrect}}{{^data_correct}}{{^data_incorrect}}user-output{{/data_incorrect}}{{/data_correct}}">{{raw_sub_data}}</code>
+                                    <span class="input-group-append">
+                                        {{#data_input_error}}
+                                            <button
+                                                type="button"
+                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                data-toggle="popover"
+                                                data-html="true"
+                                                title="Format Error"
+                                                data-placement="auto"
+                                                data-content="{{data_input_error}}"
+                                            >
+                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            </button>
+                                        {{/data_input_error}}
+                                    </span>
+                                </td>
+                            {{/block}}
+                        {{/ways}}
+                        {{#has_lru}}
+                            <td class="block-edge" {{#all_lru_correct}}style="border: 2px green dotted;"{{/all_lru_correct}}{{#all_lru_incorrect}}style="border: 2px red solid;"{{/all_lru_incorrect}}>[{{#lru}}<code class="{{#lru_correct}}user-output-correct{{/lru_correct}}{{#lru_incorrect}}user-output-incorrect{{/lru_incorrect}}{{^lru_correct}}{{^lru_incorrect}}user-output{{/lru_incorrect}}{{/lru_correct}}">{{raw_sub_lru}}</code><span class="input-group-append">
+                                    {{#lru_input_error}}
+                                        <button
+                                            type="button"
+                                            class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                            data-toggle="popover"
+                                            data-html="true"
+                                            title="Format Error"
+                                            data-placement="auto"
+                                            data-content="{{lru_input_error}}"
+                                        >
+                                            <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                        </button>
+                                    {{/lru_input_error}}
+                                </span>{{#comma}},{{/comma}}{{/lru}}]
+                            </td>
+                        {{/has_lru}}
+                    </tr>
+                {{/cache_sets}}
+            </tbody>
+        </table>
+        {{#show-percentage-score}}
+        <span style="margin-bottom: 8px;"> 
+            {{#all_correct}}
+                <span class="badge badge-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
+            {{/all_correct}}
+            {{#all_incorrect}}
+                <span class="badge badge-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
+            {{/all_incorrect}}
+            {{#all_partial}}
+                {{#score}}<span class="badge badge-warning badge-large">{{score}}%</span><br>{{/score}}
+            {{/all_partial}}
+        </span>
+        {{/show-percentage-score}}
+    </div>
+{{/submission}}
+{{#answer}}
+    <div class="c-tbl-block">
+        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+            <thead>
+                <tr>
+                    {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
+                    {{#has_lru}}
+                        {{#way_list}}
+                            <th colspan="{{way_display_width}}" class="block-edge">Way {{number}}</th>
+                        {{/way_list}}
+                    {{/has_lru}}
+                    {{#has_lru}}
+                            <th rowspan="2" class="block-edge">LRU FSM</th>
+                        </tr>
+                        <tr>
+                    {{/has_lru}}
+                    {{#way_list}}
+                        <th class="block-edge">Tag</th>
+                        {{#show_valid}}
+                            <th>Valid</th>
+                        {{/show_valid}}
+                        {{#show_dirty}}
+                            <th>Dirty</th>
+                        {{/show_dirty}}
+                        {{#block_list}}
+                            <th>Off {{offset}}</th>
+                        {{/block_list}}
+                    {{/way_list}}
+                </tr>                    
+            </thead>
+            <tbody>
+                {{#cache_sets}}
+                    <tr>
+                        {{^fully_assoc}}<td>{{index}}</td>{{/fully_assoc}}
+                        {{#ways}}
+                            <td class="block-edge">{{final_tag}}</td>
+                            {{#show_valid}}
+                                <td>{{final_valid}}</td>
+                            {{/show_valid}}
+                            {{#show_dirty}}
+                                <td>{{final_dirty}}</td>
+                            {{/show_dirty}}
+                            {{#block}}
+                                <td>{{final_data}}</td>
+                            {{/block}}
+                        {{/ways}}
+                        {{#has_lru}}
+                            <td class="block-edge">[{{#lru}}{{final_lru}}{{#comma}},{{/comma}}{{/lru}}]</td>
+                        {{/has_lru}}
+                    </tr>
+                {{/cache_sets}}
+            </tbody>
+        </table>
+    </div>
+{{/answer}}
+{{/is_material}}
+{{#is_material}}
+{{#question}}
+    <div class="c-tbl-block">
+        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+            <thead>
+                <tr>
+                    {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
+                    {{#has_lru}}
+                        {{#way_list}}
+                            <th colspan="{{way_display_width}}" class="block-edge">Way {{number}}</th>
+                        {{/way_list}}
+                    {{/has_lru}}
+                    {{#has_lru}}
+                            <th rowspan="2" class="block-edge">LRU FSM</th>
+                        </tr>
+                        <tr>
+                    {{/has_lru}}
+                    {{#way_list}}
+                        <th class="block-edge">Tag</th>
+                        {{#show_valid}}
+                            <th>Valid</th>
+                        {{/show_valid}}
+                        {{#show_dirty}}
+                            <th>Dirty</th>
+                        {{/show_dirty}}
+                        {{#block_list}}
+                            <th>Off {{offset}}</th>
+                        {{/block_list}}
+                    {{/way_list}}
+                </tr>                    
+            </thead>
+            <tbody>
+                {{#cache_sets}}
+                    <tr>
+                        {{^fully_assoc}}<td>{{index}}</td>{{/fully_assoc}}
+                        {{#ways}}
+                            <td class="block-edge">{{initial_tag}}</td>
+                            {{#show_valid}}
+                                <td>{{initial_valid}}</td>
+                            {{/show_valid}}
+                            {{#show_dirty}}
+                                <td>{{initial_dirty}}</td>
+                            {{/show_dirty}}
+                            {{#block}}
+                                <td>{{initial_data}}</td>
+                            {{/block}}
+                        {{/ways}}
+                        {{#has_lru}}
+                            <td class="block-edge">[{{#lru}}{{initial_lru}}{{#comma}},{{/comma}}{{/lru}}]</td>
+                        {{/has_lru}}
+                    </tr>
+                {{/cache_sets}}
+            </tbody>
+        </table>
+    </div>
+{{/question}}
+{{#submission}}
+    <div class="c-tbl-block">
+        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+            <thead>
+                <tr>
+                    {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
+                    {{#has_lru}}
+                        {{#way_list}}
+                            <th colspan="{{way_display_width}}" class="block-edge">Way {{number}}</th>
+                        {{/way_list}}
+                    {{/has_lru}}
+                    {{#has_lru}}
+                            <th rowspan="2" class="block-edge">LRU FSM</th>
+                        </tr>
+                        <tr>
+                    {{/has_lru}}
+                    {{#way_list}}
+                        <th class="block-edge">Tag</th>
+                        {{#show_valid}}
+                            <th>Valid</th>
+                        {{/show_valid}}
+                        {{#show_dirty}}
+                            <th>Dirty</th>
+                        {{/show_dirty}}
+                        {{#block_list}}
+                            <th>Off {{offset}}</th>
+                        {{/block_list}}
+                    {{/way_list}}
+                </tr>                    
+            </thead>
+            <tbody>
+                {{#cache_sets}}
+                    <tr>
+                        {{^fully_assoc}}<td>{{index}}</td>{{/fully_assoc}}
+                        {{#ways}}
+                            <td class="block-edge">{{initial_tag}}</td>
+                            {{#show_valid}}
+                                <td>{{initial_valid}}</td>
+                            {{/show_valid}}
+                            {{#show_dirty}}
+                                <td>{{initial_dirty}}</td>
+                            {{/show_dirty}}
+                            {{#block}}
+                                <td>{{initial_data}}</td>
+                            {{/block}}
+                        {{/ways}}
+                        {{#has_lru}}
+                            <td class="block-edge">[{{#lru}}{{initial_lru}}{{#comma}},{{/comma}}{{/lru}}]</td>
+                        {{/has_lru}}
+                    </tr>
+                {{/cache_sets}}
+            </tbody>
+        </table>
+    </div>
+{{/submission}}
+{{#answer}}
+    <div class="c-tbl-block">
+        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+            <thead>
+                <tr>
+                    {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
+                    {{#has_lru}}
+                        {{#way_list}}
+                            <th colspan="{{way_display_width}}" class="block-edge">Way {{number}}</th>
+                        {{/way_list}}
+                    {{/has_lru}}
+                    {{#has_lru}}
+                            <th rowspan="2" class="block-edge">LRU FSM</th>
+                        </tr>
+                        <tr>
+                    {{/has_lru}}
+                    {{#way_list}}
+                        <th class="block-edge">Tag</th>
+                        {{#show_valid}}
+                            <th>Valid</th>
+                        {{/show_valid}}
+                        {{#show_dirty}}
+                            <th>Dirty</th>
+                        {{/show_dirty}}
+                        {{#block_list}}
+                            <th>Off {{offset}}</th>
+                        {{/block_list}}
+                    {{/way_list}}
+                </tr>                    
+            </thead>
+            <tbody>
+                {{#cache_sets}}
+                    <tr>
+                        {{^fully_assoc}}<td>{{index}}</td>{{/fully_assoc}}
+                        {{#ways}}
+                            <td class="block-edge">{{initial_tag}}</td>
+                            {{#show_valid}}
+                                <td>{{initial_valid}}</td>
+                            {{/show_valid}}
+                            {{#show_dirty}}
+                                <td>{{initial_dirty}}</td>
+                            {{/show_dirty}}
+                            {{#block}}
+                                <td>{{initial_data}}</td>
+                            {{/block}}
+                        {{/ways}}
+                        {{#has_lru}}
+                            <td class="block-edge">[{{#lru}}{{initial_lru}}{{#comma}},{{/comma}}{{/lru}}]</td>
+                        {{/has_lru}}
+                    </tr>
+                {{/cache_sets}}
+            </tbody>
+        </table>
+    </div>
+{{/answer}}
+{{/is_material}}

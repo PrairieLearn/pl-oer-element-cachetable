@@ -1,0 +1,33 @@
+.c-access-tbl-block {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+
+.cache-access-table {
+  width: auto;
+}
+
+.cache-access-table th, .cache-access-table td {
+  text-align: center;
+  vertical-align:middle;
+  padding: 2px 5px 2px 5px;
+  margin: 0px;
+}
+
+.cache-info-button {
+  background-color: transparent;
+  border: none;
+}
+
+.cache-access-table th, td {
+  vertical-align: middle;
+}
+
+.input-group-text {
+  color: transparent;
+  background-color: transparent;
+  border: none;
+}

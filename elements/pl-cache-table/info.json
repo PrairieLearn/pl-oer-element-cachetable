@@ -1,0 +1,7 @@
+{
+    "controller": "pl-cache-table.py",
+    "dependencies": {
+      "elementScripts": ["pl-cache-table.js"],
+      "elementStyles": ["pl-cache-table.css"]
+    }
+}

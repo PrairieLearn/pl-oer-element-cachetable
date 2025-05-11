@@ -1,0 +1,83 @@
+.c-tbl-block {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.user-output-correct,
+.user-output-incorrect {
+  display: inline;
+  font-size: 14px;
+  white-space: pre;
+  color: #444;
+  background: #f0f0f0;
+
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+
+  border-radius: 2px;
+  border-color: green;
+  border-width: 2px;
+  border-style: dotted;
+
+  line-height: 28px;
+}
+
+.user-output-incorrect {
+  border-style: solid;
+  border-color: red;  
+}
+
+.cache-table {
+  width: auto;
+}
+
+.block-edge {
+  border-left: 1px solid
+}
+
+.cache-table th, .cache-table td {
+  text-align: center;
+  vertical-align:middle;
+  padding: 5px 5px 5px 5px;
+  margin: 0px;
+}
+
+.cache-table th, td {
+  vertical-align: middle;
+}
+
+.cache-table input::placeholder {
+  color: rgb(234, 110, 131);
+  opacity: 1;
+}
+
+.cache-table input[type="text"] {
+    height: auto;
+    padding: 0px 0px;
+    margin: 0px 0px;
+    text-align: center;
+}
+
+.result-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cache-info-button {
+  background-color: transparent;
+  border: none;
+}
+
+.c-tbl-block .reset-button-container {
+  width: auto;
+  margin-top: auto;
+}
+
+.incorrect-data + .block-edge td {
+    border-right: 2px dashed red; 
+}

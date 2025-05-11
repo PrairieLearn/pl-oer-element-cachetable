@@ -1,0 +1,74 @@
+<pl-question-panel>
+  <h2>Example Cache Table</h2>
+  <p>This example sets the <code>show-valid</code> to show the valid bit and generates a cache that has some empty sets in the cache.</p>
+<pl-hidden-hints>
+   <pl-hint hint-name="Cache Formulas">
+   <pl-template directory="clientFilesCourse" file-name="direct_mapped_formulas.html" log-tag-warnings="false"></pl-template>
+   </pl-hint>
+ </pl-hidden-hints>
+
+ <p>
+    On the left is a {{params.memory_size}}B data memory (much smaller than real ones). On the right is an {{params.cache_size}}B cache with {{params.cache_sets}} sets of blocks and {{params.block_size}}B per block.
+  </p>
+  <p>
+    Fill in the contents of the cache after the following sequence of memory loads. Indicate whether each memory load is a hit or a miss. Pay attention to the Valid bit!
+  </p>
+</pl-question-panel>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+    <pl-question-panel>
+      <p style="text-align: center;"><b>Data Memory</b></p>
+        <pl-array-input
+            answers-name="mem-table"
+            correct-answer={{params.mem_table}}
+            index-base="{{params.display_base}}"
+            is-material="true"
+        ></pl-array-input>
+    </pl-question-panel>
+      <pl-answer-panel>
+        <div class="d-flex justify-content-center">
+        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+          <caption style="caption-side: top">Tag/Index for each access</caption>
+          <thead>
+            <tr><th>Access</th><th>Tag</th><th>Index</th></tr>
+          </thead>
+          <tbody>
+            {{#params.tio_sequence}}
+            <tr>
+              <td>{{access}}</td><td>{{{tag}}}</td><td>{{{index}}}</td>
+            </tr>
+            {{/params.tio_sequence}}
+          </tbody>
+        </table>
+        </div>
+      </pl-answer-panel>
+    </div>
+    <div class="col-sm-8">
+      <p style="text-align: center;"><b>Direct-mapped {{params.cache_size}}B cache, with 2B blocks</b></p>
+      <pl-cache-table 
+            answers-name="{{params.answers_name}}"
+            set-bits = "{{params.set_bits}}"
+            num-ways = "{{params.num_ways}}"
+            block-bits = "{{params.block_bits}}"
+            weight = "3"
+            show-percentage-score="false"
+            grade-mode="cells"
+            show-valid="{{params.show_valid}}"
+            display-base = "{{params.display_base}}"
+      ></pl-cache-table>
+      <p></p>
+
+      <pl-cache-access-table answers-name="{{params.answers_name}}_access" show-percentage-score="false"></pl-cache-access-table>
+      <pl-question-panel>
+        <div class="d-flex justify-content-center"><pl-hex-calculator></pl-hex-calculator></div>
+      </pl-question-panel>
+    </div>
+  </div>
+</div>
+<style>
+  .array-input td, th {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+</style>

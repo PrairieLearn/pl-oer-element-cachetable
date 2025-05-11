@@ -1,0 +1,51 @@
+<pl-question-panel>
+<h2>Example Cache Table</h2>
+<p>This example sets the cache to a static table using the <code>is-material</code> attribute. It also illustrates the <code>show-dirty</code> attribute for simulating writeback caches.</p>
+<p>Given a direct-mapped cache with <strong>{{params.sets}} sets</strong> of <strong>{{params.block_size}}-byte blocks</strong> and a main memory that has <strong>{{params.addr_bits}}-bit addresses</strong>.</p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <pl-cache-table 
+            answers-name="{{params.answers_name}}"
+            set-bits = "{{params.set_bits}}"
+            num-ways = "{{params.num_ways}}"
+            block-bits = "{{params.block_bits}}"
+            display-base = "{{params.display_base}}"
+            show-valid = "{{params.show_valid}}"
+            show-dirty = "{{params.show_dirty}}"
+            is-material = "true"
+      ></pl-cache-table>
+    </div>
+    <div class="col-sm-4">
+      <div class="d-flex justify-content-center"><pl-hex-calculator></pl-hex-calculator></div>
+    </div>
+  </div>
+</div>
+
+<p>A load instruction is trying to load from address <code>{{correct_answers.cache_access.0.address}}</code>. If there is a cache hit, determine what data would be retrieved from the cache (be sure to add the 0x prefix). If there is a cache miss, determine whether a write-back would happen. If there would be a writeback type "writeback". If there would NOT be a writeback type "replace".</p> 
+</pl-question-panel>
+<p></p>
+<p><pl-string-input label="Answer = " answers-name="ans" display="inline" remove-leading-trailing="true" remove-spaces="true" ignore-case="true"></pl-string-input></p>
+
+<pl-answer-panel>
+<div class="d-flex justify-content-center">
+<table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+  <caption style="caption-side: top">Tag/Index for each access</caption>
+  <thead>
+    <tr><th>Access</th><th>Tag</th><th>Index</th><th>Offset</th></tr>
+  </thead>
+  <tbody>
+    {{#params.tio_sequence}}
+    <tr>
+      <td>{{access}}</td><td>{{{tag}}}</td><td>{{{index}}}</td><td>{{{offset}}}</td>
+    </tr>
+    {{/params.tio_sequence}}
+  </tbody>
+</table>
+</div>
+<h4>Example Solution Video</h4>
+<p>
+<iframe id="kmsembed-1_ls752mrp" style="width:25vh" src="https://mediaspace.illinois.edu/embed/secure/iframe/entryId/1_ls752mrp/uiConfId/26883701/st/0" class="kmsembed" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" referrerPolicy="no-referrer-when-downgrade" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player"></iframe>
+</p>
+</pl-answer-panel>

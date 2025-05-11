@@ -1,36 +1,18 @@
 {
-  "uuid": "bdca0408-4894-4d96-ae29-915249c92917",
-  "name": "OER 311",
-  "title": "Element: Cache Table",
-  "options": { "useNewQuestionRenderer": true },
-  "assessmentSets": [
-    {
-      "abbreviation": "PLEC",
-      "name": "Prelecture",
-      "heading": "Prelectures",
-      "color": "turquoise1"
+    "uuid": "829b9fb2-9821-48d4-a866-70e45b5cce40",
+    "name": "OER 311",
+    "title": "Element: Cache Table",
+    "assessmentSets": [
+    ],
+    "options": {
+        "useNewQuestionRenderer": true
     },
-    { "abbreviation": "LEC", "name": "Lecture", "heading": "Lectures", "color": "turquoise2" },
-    { "abbreviation": "LAB", "name": "Lab", "heading": "Labs", "color": "blue1" },
-    { "abbreviation": "HW", "name": "Homework", "heading": "Homeworks", "color": "green1" },
-    {
-      "abbreviation": "PQ",
-      "name": "Practice Quiz",
-      "heading": "Practice Quizzes",
-      "color": "yellow1"
-    },
-    { "abbreviation": "Q", "name": "Quiz", "heading": "Quizzes", "color": "yellow2" },
-    {
-      "abbreviation": "PE",
-      "name": "Practice Exam",
-      "heading": "Practice Exams",
-      "color": "pink1"
-    },
-    { "abbreviation": "E", "name": "Exam", "heading": "Exams", "color": "pink2" },
-    { "abbreviation": "U", "name": "Unknown", "heading": "Unknown", "color": "red3" }
-  ],
-  "topics": [{ "name": "Default", "color": "gray1", "description": "Default topic" }],
-  "tags": [],
-  "timezone": "America/Chicago"
-}
+    "topics": [
 
+    ],
+    "tags": [
+        {"name": "author:prairielearn.com", "color": "blue3", "description": "questions created by the Prairielearn team"},
+        {"name": "license:CC-BY-NC", "color": "yellow3", "description": "license for all prairielearn.com questions"}
+    ],
+    "timezone": "America/Chicago"
+}

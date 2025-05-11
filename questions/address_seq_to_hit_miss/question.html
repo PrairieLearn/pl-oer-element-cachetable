@@ -1,0 +1,48 @@
+<pl-question-panel>
+  <h2>Example Cache Access Table</h2>
+  <p>Basic cache access table example that illustrates a sequence of 5 memory accesses. This question uses its <code>server.py</code> to generate the sequence of accesses. <code>empty-cache="true"</code> so that students don't need to indicate that the first access is a miss.</p>
+  <p>
+  Consider a 32-bit processor that uses a <strong>{{params.associativity}}</strong> cache with a total capacity of {{params.cache_size}}KB with {{params.block_size}}B cache blocks. Reminder: K = 2<sup>10</sup>
+</p>
+<p>The table below provides a list of memory address that a program accesses, where the top address is accessed first. Assume the cache is initially empty, so that the first access is a miss. Which of these accesses result in a cache hit?
+</p>
+</pl-question-panel>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8">
+      <p><code>grade-mode='through-first'</code> so that feedback is provided only for memory accesses before the first error.</p>
+      <pl-cache-access-table answers-name="cache_access" empty-cache="true"></pl-cache-access-table>
+      <p>Same sequence of accesses but <code>grade-mode='all'</code> so that feedback is provided for each memory access.</p>
+      <pl-cache-access-table answers-name="cache_access2" empty-cache="true" grade-mode='all'></pl-cache-access-table>
+    </div>
+    <div class="col-sm-4">
+      <pl-question-panel>
+        <div class="d-flex justify-content-center"><pl-hex-calculator></pl-hex-calculator></div>
+      </pl-question-panel>
+    </div>
+  </div>
+</div>
+
+<pl-answer-panel>
+<div class="d-flex justify-content-center">
+<table class="cache-table table table-hover table-striped table-condensed overflow-hidden cache-access-table" border="1">
+  <caption style="caption-side: top">Tag/Index for each access</caption>
+  <thead>
+    <tr><th>Access</th><th>Tag</th><th>Index</th><th>Text</tr>
+  </thead>
+  <tbody>
+    {{#params.access_table}}
+    <tr>
+      <td>{{access}}</td><td>{{{tag}}}</td><td>{{{index}}}</td><td>{{{text}}}</td>
+    </tr>
+    {{/params.access_table}}
+  </tbody>
+</table>
+</div>
+
+<h4>Example Solution Video</h4>
+<p>
+<iframe id="kmsembed-1_ah044psz" style="width:25vh" src="https://mediaspace.illinois.edu/embed/secure/iframe/entryId/1_ah044psz/uiConfId/26883701/st/0" class="kmsembed" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" referrerPolicy="no-referrer-when-downgrade" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player"></iframe>
+</p>
+</pl-answer-panel>

@@ -1,0 +1,190 @@
+{{#question}}
+    <div class="c-access-tbl-block">
+        <div>
+            <table class="table table-striped table-bordered table-condensed cache-access-table">
+                <thead>
+                    <tr>
+                        <th style="padding-left: 10px; padding-right: 10px;">Access</th>
+                        <th>Address</th>
+                        <th>Hit/Miss
+                            <button
+                                type="button"
+                                class="btn-sm cache-info-button align-items-center"
+                                data-toggle="popover"
+                                data-html="true"
+                                title="Grading Method"
+                                data-content="{{{grade-info}}}"
+                                data-placement="auto">
+                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            </button>
+                            {{#show-percentage-score}}
+                            {{#all_correct}}
+                                <span class="badge badge-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
+                            {{/all_correct}}
+                            {{#all_incorrect}}
+                                <span class="badge badge-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
+                            {{/all_incorrect}}
+                            {{#all_partial}}
+                                {{#score}}<span class="badge badge-warning badge-large">{{score}}%</span><br>{{/score}}
+                            {{/all_partial}}
+                            {{/show-percentage-score}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#accesses}}
+                        <tr>
+                            <td>{{index}}</td>
+                            <td style="padding-left: 10px; padding-right: 10px;">Load <code>{{address}}</code></td>
+                            <td>
+                            {{^first_miss}}
+                                <span>
+                                    <span role="group" aria-label="Multiple choice options">
+                                        <div class="form-check form-check-inline d-inline-flex align-items-center py-1 gap-2">
+                                            <input
+                                                type="radio"
+                                                name="{{name}}{{index}}_hit"
+                                                value="Hit"
+                                                id="{{name}}{{index}}_hit"
+                                                {{#sub_hit}}checked{{/sub_hit}}
+                                            >
+
+                                            <label for="{{name}}{{index}}_hit" style="padding-right: 15px;">
+                                                <div>Hit</div>
+                                            </label>
+
+                                            <input
+                                                type="radio"
+                                                name="{{name}}{{index}}_hit"
+                                                value="Miss"
+                                                id="{{name}}{{index}}_miss"
+                                                {{#sub_miss}}checked{{/sub_miss}}
+                                            >
+
+                                            <label for="{{name}}{{index}}_miss">
+                                                <div>Miss</div>
+                                            </label>
+
+                                            <span class="input-group-append">
+                                                {{#input_error}}
+                                                    <button
+                                                        type="button"
+                                                        class="btn btn-xs btn-light border d-flex align-items-center text-danger"
+                                                        data-toggle="popover"
+                                                        data-html="true"
+                                                        title="Format Error"
+                                                        data-placement="auto"
+                                                        data-content="{{input_error}}"
+                                                    >
+                                                        <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                    </button>
+                                                {{/input_error}}
+                                            </span>
+                                            {{#show-partial-score}}
+                                            {{#correct}}
+                                                <span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                            {{/correct}}
+                                            {{#incorrect}}
+                                                <span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                            {{/incorrect}}
+                                            {{/show-partial-score}}
+                                        </div>
+                                    </span>
+                                </span>
+                            {{/first_miss}}
+                            {{#first_miss}}
+                                Miss
+                            {{/first_miss}}
+                            </td>
+                        </tr>
+                    {{/accesses}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{#feedback}}
+    <div class="c-tbl-block">
+        <div class="pl-multiple-choice-feedback">
+            {{{feedback}}}
+        </div>
+    </div>
+    {{/feedback}}
+{{/question}}
+{{#submission}}
+    <div class="c-tbl-block">
+        <div>
+            <table class="table table-striped table-bordered table-condensed cache-access-table">
+                <thead>
+                    <tr>
+                        <th style="padding-left: 10px; padding-right: 10px;">Access</th>
+                        <th>Address</th>
+                        <th>Hit/Miss
+                            {{#show-percentage-score}}
+                            {{#all_correct}}
+                                <span class="badge badge-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
+                            {{/all_correct}}
+                            {{#all_incorrect}}
+                                <span class="badge badge-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
+                            {{/all_incorrect}}
+                            {{#all_partial}}
+                                {{#score}}<span class="badge badge-warning badge-large">{{score}}%</span><br>{{/score}}
+                            {{/all_partial}}
+                            {{/show-percentage-score}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#accesses}}
+                        <tr>
+                            <td>{{index}}</td>
+                            <td style="padding-left: 10px; padding-right: 10px;">Load <code>{{address}}</code></td>
+                            <td>{{^first_miss}}<code class="user-output">{{sub_text}}</code>{{/first_miss}}{{#first_miss}}Miss{{/first_miss}}
+
+                                {{#show-partial-score}}
+                                {{#correct}}
+                                    <span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                {{/correct}}
+                                {{#incorrect}}
+                                    <span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                {{/incorrect}}
+                                {{/show-partial-score}}
+                            </td>
+                        </tr>
+                    {{/accesses}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {{#feedback}}
+    <div class="c-tbl-block">
+        <div class="pl-multiple-choice-feedback">
+            {{{feedback}}}
+        </div>
+    </div>
+    {{/feedback}}
+{{/submission}}
+{{#answer}}
+    <div class="c-tbl-block">
+        <div>
+            <table class="table table-striped table-bordered table-condensed cache-access-table">
+                <thead>
+                    <tr>
+                        <th style="padding-left: 10px; padding-right: 10px;">Access</th>
+                        <th>Address</th>
+                        <th>Hit/Miss
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#accesses}}
+                        <tr>
+                            <td>{{index}}</td>
+                            <td style="padding-left: 10px; padding-right: 10px;">Load <code>{{address}}</code></td>
+                            <td>{{ans_text}}</td>
+                        </tr>
+                    {{/accesses}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{{/answer}}

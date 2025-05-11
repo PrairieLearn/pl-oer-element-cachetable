@@ -1,0 +1,79 @@
+<pl-question-panel>
+  <h2>Example Cache Table</h2>
+  <p>This example shows a 3-way set associative cache, which is about the highest set associativity that displays cleanly. The question also displays how you might change the base used to represent tag and index to match notational standards for different classes.</p>
+  <p>
+    On the left is a 32B data memory. On the right is a cache table representing a {{params.num_ways}}-way set associative, {{params.cache_size}}B cache with {{params.cache_sets}} sets of blocks and 2B per block. The cache table starts with the initial state of the cache before a series of memory loads. The right-most column shows the current state of the LRU FSMs, which keep track of the order in which each way was accessed for each set index. The number furthest to the left is the least-recently used way and the number furthest to the right is the most-recently used way. For example, in [1,0], 1 was least-recently used and 0 was most recently used, meaning that way 1 would be replaced if the next access to its set was a miss.
+  </p>
+  <p>
+    Update the cache table to show the final state of the cache after the series of loads completes. Fill what tags (in hexadecimal) and data (in decimal) are stored in each cache block and indicate the final state of the LSU FSMs.
+  </p>
+
+</pl-question-panel>
+
+
+<div class="container">
+  <div class="row">
+    <pl-question-panel>
+    <div class="col-sm-2">
+      <p style="text-align: center;"><b>Data Memory</b></p>
+        <pl-array-input
+            answers-name="mem-table"
+            correct-answer={{params.mem_table}}
+            index-base="{{params.display_base}}"
+            index-fixed-width={{params.index_fixed_width}}
+            is-material="true"
+        ></pl-array-input>
+    </div>
+    </pl-question-panel>
+    <div class="col-sm-10">
+      <p style="text-align: center;"><b>{{params.num_ways}}-way set associative, {{params.cache_size}}B cache, with 2B blocks</b></p>
+      <pl-cache-table 
+            answers-name="{{params.answers_name}}"
+            set-bits = "{{params.set_bits}}"
+            num-ways = "{{params.num_ways}}"
+            block-bits = "{{params.block_bits}}"
+            weight = "3"
+            display-base = "{{params.display_base}}"
+            show-valid = "{{params.show_valid}}"
+      ></pl-cache-table>
+      <p></p>
+      <pl-question-panel>
+        <p>Suppose a program accesses the following series of addresses, where the top-most address is accessed first. Indicate whether each access is a hit or miss. </p>
+      </pl-question-panel>
+
+      <pl-cache-access-table answers-name="{{params.answers_name}}_access" show-percentage-score="false"></pl-cache-access-table>
+      <pl-question-panel>
+        <div class="d-flex justify-content-center"><pl-hex-calculator></pl-hex-calculator></div>
+      </pl-question-panel>
+    </div>
+  </div>
+</div>
+
+<pl-answer-panel>
+<div class="d-flex justify-content-center">
+<table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+  <caption style="caption-side: top">Tag/Index for each access</caption>
+  <thead>
+    <tr><th>Access</th><th>Tag</th><th>Index</th></tr>
+  </thead>
+  <tbody>
+    {{#params.tio_sequence}}
+    <tr>
+      <td>{{access}}</td><td>{{{tag}}}</td><td>{{{index}}}</td>
+    </tr>
+    {{/params.tio_sequence}}
+  </tbody>
+</table>
+</div>
+<h4>Example Solution Video</h4>
+<p>
+<iframe id="kmsembed-1_vvv6346v" style="width:25vh" src="https://mediaspace.illinois.edu/embed/secure/iframe/entryId/1_vvv6346v/uiConfId/26883701/st/0" class="kmsembed" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" referrerPolicy="no-referrer-when-downgrade" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player"></iframe>
+</p>
+</pl-answer-panel>
+
+<style>
+  .array-input td, th {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+</style>

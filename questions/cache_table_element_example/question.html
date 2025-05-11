@@ -1,0 +1,75 @@
+<pl-question-panel>
+  <h2>Example Cache Table</h2>
+  <p>Basic cache table example that has one memory access that students need to update. This question primarily uses <code>cache_tables.py</code> in <code>serverFilesCourse</code> to generate the contents of the cache and the sequence of memory accesses.</p>
+  <p>
+    On the left is a 32B data memory. On the right is a cache table representing a {{params.num_ways}}-way set associative, {{params.cache_size}}B cache with {{params.cache_sets}} sets of blocks and 2B per block. The cache table starts with the initial state of the cache before a series of memory loads. The right-most column shows the current state of the LRU FSMs, which keep track of the order in which each way was accessed for each set index. The number furthest to the left is the least-recently used way and the number furthest to the right is the most-recently used way. For example, in [1,0], 1 was least-recently used and 0 was most recently used, meaning that way 1 would be replaced if the next access to its set was a miss.
+  </p>
+  <p>
+    Update the cache table to show the final state of the cache after the series of loads completes. Fill what tags (in hexadecimal) and data (in decimal) are stored in each cache block and indicate the final state of the LSU FSMs.
+  </p>
+
+</pl-question-panel>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+    <pl-question-panel>
+      <p style="text-align: center;"><b>Data Memory</b></p>
+        <pl-array-input
+            answers-name="mem-table"
+            correct-answer={{params.mem_table}}
+            index-base="hex"
+            is-material="true"
+        ></pl-array-input>
+    </pl-question-panel>
+    </div>
+    <div class="col-sm-10">
+      <pl-question-panel>
+      <p>A load instruction tries to access address <code>{{correct_answers.cache_access.0.address}}</code>. Update the contents of the cache in response to this memory access</p>
+      </pl-question-panel>
+
+      <p style="text-align: center;"><b>{{params.num_ways}}-way set associative, {{params.cache_size}}B cache, with 2B blocks</b></p>
+      <p><code>grade-mode="blocks"</code>. If any cell is wrong in a cache block, the entire block is wrong.</p>
+      <pl-cache-table 
+            answers-name="{{params.answers_name}}"
+            set-bits = "{{params.set_bits}}"
+            num-ways = "{{params.num_ways}}"
+            block-bits = "{{params.block_bits}}"
+            weight = "1"
+            display-base = "{{params.display_base}}"
+            show-valid = "{{params.show_valid}}"
+      ></pl-cache-table>
+      <p><code>grade-mode="cells"</code>. Every cell is graded individually.</p>
+      <pl-cache-table 
+            answers-name="cache2"
+            set-bits = "{{params.set_bits}}"
+            num-ways = "{{params.num_ways}}"
+            block-bits = "{{params.block_bits}}"
+            weight = "1"
+            display-base = "{{params.display_base}}"
+            show-valid = "{{params.show_valid}}"
+            grade-mode = "cells"
+      ></pl-cache-table>
+      <p></p>
+
+      <pl-question-panel>
+        <div class="d-flex justify-content-center"><pl-hex-calculator></pl-hex-calculator></div>
+      </pl-question-panel>
+    </div>
+  </div>
+</div>
+
+<pl-answer-panel>
+<h4>Example Solution Video</h4>
+<p>
+<iframe id="kmsembed-1_vvv6346v" style="width:25vh" src="https://mediaspace.illinois.edu/embed/secure/iframe/entryId/1_vvv6346v/uiConfId/26883701/st/0" class="kmsembed" allowfullscreen webkitallowfullscreen mozAllowFullScreen allow="autoplay *; fullscreen *; encrypted-media *" referrerPolicy="no-referrer-when-downgrade" sandbox="allow-forms allow-same-origin allow-scripts allow-top-navigation allow-pointer-lock allow-popups allow-modals allow-orientation-lock allow-popups-to-escape-sandbox allow-presentation allow-top-navigation-by-user-activation" frameborder="0" title="Kaltura Player"></iframe>
+</p>
+</pl-answer-panel>
+
+<style>
+  .array-input td, th {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+  }
+</style>
