@@ -1,0 +1,38 @@
+<p>Hex and binary columns are equivalent operations (e.g., Bytes per cache block is 2<sup><code>o</code></sup>)</p>
+<ul>
+	<li><code>t</code> = # of bits in the Tag</li>
+	<li><code>i</code> = # of bits in the Index</li>
+	<li><code>o</code> = # of bits in the Offset</li>
+</ul>
+<table class="table table-hover table-striped table-condensed">
+	<thead>
+		<tr><th>Parameter</th><th>Hex</th><th>Binary</th></tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>Number of cache blocks</td>
+			<td>Size of Cache in Bytes / <br>Bytes per cache block</td>
+			<td>Size of Cache in Bytes / <br>2<sup><code>o</code></sup></td>
+		</tr>
+		<tr>
+			<td>Block Offset</td>
+			<td>Address % # Bytes in cache block</td>
+			<td>Offset is last <code>o</code> bits in address</td>
+		</tr>
+		<tr>
+			<td>Block Index</td>
+			<td>(Address / # Bytes in cache block) % <br> # of cache blocks</td>
+			<td>Remove last <code>o</code> bits from address <br> Index is last <code>i</code> bits in remaining address bits</td>
+		</tr>
+		<tr>
+			<td>Tag</td>
+			<td>(Address / # Bytes in cache block) / <br> # of cache blocks</td>
+			<td>Remove last <code>o</code> + <code>i</code> bits in address</td>
+		</tr>
+		<tr>
+			<td>ADDR</td>
+			<td>((Tag * # cache blocks) + Index) * # Bytes in cache block) + Offset</td>
+			<td>Concatenate(bits for Tag, bits for Index, bits for Offset)</td>
+		</tr>
+	</tbody>
+</table>
