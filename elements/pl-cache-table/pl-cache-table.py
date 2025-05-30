@@ -164,7 +164,7 @@ def render(element_html: str, data: pl.QuestionData) -> str:
     display_base = pl.get_string_attrib(element, 'display-base', DISPLAY_BASE_DEFAULT)
     display_base = display_base.lower()
     tag_width = int(pl.get_string_attrib(element, 'tag-width', TAG_WIDTH_DEFAULT))
-    if tag_width != TAG_WIDTH_DEFAULT and display_base == 'hex':
+    if tag_width == TAG_WIDTH_DEFAULT and display_base == 'hex':
         tag_width = 60
 
     initial_cache = data['params'][name]
