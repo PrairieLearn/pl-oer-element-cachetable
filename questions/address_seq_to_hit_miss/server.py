@@ -135,6 +135,7 @@ def generate(data):
           'index': hex(acc_idx),
           'text': 'Miss (Invalid)'
         }
+      access_table.append(access)
   else:
     for x in range(num_addr): # add choice of same index different tag
       hit_choice = random.randint(0,9)# random.randint(0,9)
