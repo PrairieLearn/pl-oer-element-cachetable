@@ -74,7 +74,7 @@ window.PLCacheTable.prototype.resetToPrefillValues = function () {
   });
 
   this.element
-    .querySelectorAll(".badge-success, .badge-danger")
+    .querySelectorAll(".text-bg-success, .text-bg-danger")
     .forEach((badge) => {
       badge.parentNode.removeChild(badge);
     });
@@ -84,10 +84,10 @@ window.PLCacheTable.prototype.resetToPrefillValues = function () {
   });
 
   this.element
-    .querySelectorAll('[data-toggle="popover"]')
+    .querySelectorAll('[data-bs-toggle="popover"]')
     .forEach((popover) => {
-      popover.removeAttribute("data-content");
-      popover.removeAttribute("data-original-title");
+      popover.removeAttribute("data-bs-content");
+      popover.removeAttribute("data-bs-original-title");
     });
 };
 

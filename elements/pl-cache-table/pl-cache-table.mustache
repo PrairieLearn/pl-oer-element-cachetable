@@ -5,17 +5,17 @@
         {{#show-percentage-score}}
         <span style="width: 100%; justify-content: center;"> 
             {{#all_correct}}
-                <span class="badge badge-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span>
+                <span class="badge text-bg-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span>
             {{/all_correct}}
             {{#all_incorrect}}
-                <span class="badge badge-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span>
+                <span class="badge text-bg-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span>
             {{/all_incorrect}}
             {{#all_partial}}
-                {{#score}}<span class="badge badge-warning badge-large">{{score}}%</span>{{/score}}
+                {{#score}}<span class="badge text-bg-warning badge-large">{{score}}%</span>{{/score}}
             {{/all_partial}}
         </span>
         {{/show-percentage-score}}
-        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" {{#blocks}}style="border-collapse:separate"{{/blocks}} border="1">
+        <table class="cache-table table table-hover table-striped table-sm overflow-hidden" {{#blocks}}style="border-collapse:separate"{{/blocks}} border="1">
             <thead>
                 <tr>
                     {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
@@ -63,14 +63,14 @@
                                         {{#tag_input_error}}
                                             <button
                                                 type="button"
-                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                data-toggle="popover"
-                                                data-html="true"
+                                                class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                data-bs-toggle="popover"
+                                                data-bs-html="true"
                                                 title="Format Error"
-                                                data-placement="auto"
-                                                data-content="{{tag_input_error}}"
+                                                data-bs-placement="auto"
+                                                data-bs-content="{{tag_input_error}}"
                                             >
-                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                             </button>
                                         {{/tag_input_error}}
                                     </span>
@@ -92,14 +92,14 @@
                                         {{#valid_input_error}}
                                             <button
                                                 type="button"
-                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                data-toggle="popover"
-                                                data-html="true"
+                                                class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                data-bs-toggle="popover"
+                                                data-bs-html="true"
                                                 title="Format Error"
-                                                data-placement="auto"
-                                                data-content="{{valid_input_error}}"
+                                                data-bs-placement="auto"
+                                                data-bs-content="{{valid_input_error}}"
                                             >
-                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                             </button>
                                         {{/valid_input_error}}
                                     </span>
@@ -122,14 +122,14 @@
                                         {{#dirty_input_error}}
                                             <button
                                                 type="button"
-                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                data-toggle="popover"
-                                                data-html="true"
+                                                class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                data-bs-toggle="popover"
+                                                data-bs-html="true"
                                                 title="Format Error"
-                                                data-placement="auto"
-                                                data-content="{{dirty_input_error}}"
+                                                data-bs-placement="auto"
+                                                data-bs-content="{{dirty_input_error}}"
                                             >
-                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                             </button>
                                         {{/dirty_input_error}}
                                     </span>
@@ -151,14 +151,14 @@
                                             {{#data_input_error}}
                                                 <button
                                                     type="button"
-                                                    class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                    data-toggle="popover"
-                                                    data-html="true"
+                                                    class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                    data-bs-toggle="popover"
+                                                    data-bs-html="true"
                                                     title="Format Error"
-                                                    data-placement="auto"
-                                                    data-content="{{data_input_error}}"
+                                                    data-bs-placement="auto"
+                                                    data-bs-content="{{data_input_error}}"
                                                 >
-                                                    <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                    <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                                 </button>
                                             {{/data_input_error}}
                                         </span>
@@ -180,14 +180,14 @@
                                         {{#lru_input_error}}
                                             <button
                                                 type="button"
-                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                data-toggle="popover"
-                                                data-html="true"
+                                                class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                data-bs-toggle="popover"
+                                                data-bs-html="true"
                                                 title="Format Error"
-                                                data-placement="auto"
-                                                data-content="{{lru_input_error}}"
+                                                data-bs-placement="auto"
+                                                data-bs-content="{{lru_input_error}}"
                                             >
-                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                             </button>
                                         {{/lru_input_error}}</span></div></span>{{#comma}},{{/comma}}{{/lru}}]</td>
                         {{/has_lru}}
@@ -199,11 +199,11 @@
             <button
                 type="button"
                 class="btn-sm cache-info-button align-items-center "
-                data-toggle="popover"
+                data-bs-toggle="popover"
                 title="Grading Method"
-                data-html="true"
-                data-content="{{{grade-info}}}"
-                data-placement="auto">
+                data-bs-html="true"
+                data-bs-content="{{{grade-info}}}"
+                data-bs-placement="auto">
                 <i class="fa fa-question-circle" aria-hidden="true"></i>
             </button>
             <button
@@ -227,7 +227,7 @@
 {{/question}}
 {{#submission}}
     <div class="c-tbl-block">
-        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" {{#blocks}}style="border-collapse:separate"{{/blocks}} border="1">
+        <table class="cache-table table table-hover table-striped table-sm overflow-hidden" {{#blocks}}style="border-collapse:separate"{{/blocks}} border="1">
             <thead>
                 <tr>
                     {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
@@ -266,14 +266,14 @@
                                     {{#tag_input_error}}
                                         <button
                                             type="button"
-                                            class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                            data-toggle="popover"
-                                            data-html="true"
+                                            class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                            data-bs-toggle="popover"
+                                            data-bs-html="true"
                                             title="Format Error"
-                                            data-placement="auto"
-                                            data-content="{{tag_input_error}}"
+                                            data-bs-placement="auto"
+                                            data-bs-content="{{tag_input_error}}"
                                         >
-                                            <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                         </button>
                                     {{/tag_input_error}}
                                 </span>
@@ -285,14 +285,14 @@
                                         {{#valid_input_error}}
                                             <button
                                                 type="button"
-                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                data-toggle="popover"
-                                                data-html="true"
+                                                class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                data-bs-toggle="popover"
+                                                data-bs-html="true"
                                                 title="Format Error"
-                                                data-placement="auto"
-                                                data-content="{{valid_input_error}}"
+                                                data-bs-placement="auto"
+                                                data-bs-content="{{valid_input_error}}"
                                             >
-                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                             </button>
                                         {{/valid_input_error}}
                                     </span>
@@ -305,14 +305,14 @@
                                         {{#dirty_input_error}}
                                             <button
                                                 type="button"
-                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                data-toggle="popover"
-                                                data-html="true"
+                                                class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                data-bs-toggle="popover"
+                                                data-bs-html="true"
                                                 title="Format Error"
-                                                data-placement="auto"
-                                                data-content="{{dirty_input_error}}"
+                                                data-bs-placement="auto"
+                                                data-bs-content="{{dirty_input_error}}"
                                             >
-                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                             </button>
                                         {{/dirty_input_error}}
                                     </span>
@@ -325,14 +325,14 @@
                                         {{#data_input_error}}
                                             <button
                                                 type="button"
-                                                class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                data-toggle="popover"
-                                                data-html="true"
+                                                class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                data-bs-toggle="popover"
+                                                data-bs-html="true"
                                                 title="Format Error"
-                                                data-placement="auto"
-                                                data-content="{{data_input_error}}"
+                                                data-bs-placement="auto"
+                                                data-bs-content="{{data_input_error}}"
                                             >
-                                                <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                             </button>
                                         {{/data_input_error}}
                                     </span>
@@ -344,14 +344,14 @@
                                     {{#lru_input_error}}
                                         <button
                                             type="button"
-                                            class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                            data-toggle="popover"
-                                            data-html="true"
+                                            class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                            data-bs-toggle="popover"
+                                            data-bs-html="true"
                                             title="Format Error"
-                                            data-placement="auto"
-                                            data-content="{{lru_input_error}}"
+                                            data-bs-placement="auto"
+                                            data-bs-content="{{lru_input_error}}"
                                         >
-                                            <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                            <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                         </button>
                                     {{/lru_input_error}}
                                 </span>{{#comma}},{{/comma}}{{/lru}}]
@@ -364,13 +364,13 @@
         {{#show-percentage-score}}
         <span style="margin-bottom: 8px;"> 
             {{#all_correct}}
-                <span class="badge badge-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
+                <span class="badge text-bg-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
             {{/all_correct}}
             {{#all_incorrect}}
-                <span class="badge badge-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
+                <span class="badge text-bg-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
             {{/all_incorrect}}
             {{#all_partial}}
-                {{#score}}<span class="badge badge-warning badge-large">{{score}}%</span><br>{{/score}}
+                {{#score}}<span class="badge text-bg-warning badge-large">{{score}}%</span><br>{{/score}}
             {{/all_partial}}
         </span>
         {{/show-percentage-score}}
@@ -378,7 +378,7 @@
 {{/submission}}
 {{#answer}}
     <div class="c-tbl-block">
-        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+        <table class="cache-table table table-hover table-striped table-sm overflow-hidden" border="1">
             <thead>
                 <tr>
                     {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
@@ -435,7 +435,7 @@
 {{#is_material}}
 {{#question}}
     <div class="c-tbl-block">
-        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+        <table class="cache-table table table-hover table-striped table-sm overflow-hidden" border="1">
             <thead>
                 <tr>
                     {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
@@ -490,7 +490,7 @@
 {{/question}}
 {{#submission}}
     <div class="c-tbl-block">
-        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+        <table class="cache-table table table-hover table-striped table-sm overflow-hidden" border="1">
             <thead>
                 <tr>
                     {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}
@@ -545,7 +545,7 @@
 {{/submission}}
 {{#answer}}
     <div class="c-tbl-block">
-        <table class="cache-table table table-hover table-striped table-condensed overflow-hidden" border="1">
+        <table class="cache-table table table-hover table-striped table-sm overflow-hidden" border="1">
             <thead>
                 <tr>
                     {{^fully_assoc}}<th{{#has_lru}} rowspan="2" style="align:center"{{/has_lru}}>Set {{#has_lru}}<br>{{/has_lru}}Index</th>{{/fully_assoc}}

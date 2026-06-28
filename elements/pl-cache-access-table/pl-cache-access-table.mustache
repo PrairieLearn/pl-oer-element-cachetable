@@ -1,7 +1,7 @@
 {{#question}}
     <div class="c-access-tbl-block">
         <div>
-            <table class="table table-striped table-bordered table-condensed cache-access-table">
+            <table class="table table-striped table-bordered table-sm cache-access-table">
                 <thead>
                     <tr>
                         <th style="padding-left: 10px; padding-right: 10px;">Access</th>
@@ -10,22 +10,22 @@
                             <button
                                 type="button"
                                 class="btn-sm cache-info-button align-items-center"
-                                data-toggle="popover"
-                                data-html="true"
+                                data-bs-toggle="popover"
+                                data-bs-html="true"
                                 title="Grading Method"
-                                data-content="{{{grade-info}}}"
-                                data-placement="auto">
+                                data-bs-content="{{{grade-info}}}"
+                                data-bs-placement="auto">
                                 <i class="fa fa-question-circle" aria-hidden="true"></i>
                             </button>
                             {{#show-percentage-score}}
                             {{#all_correct}}
-                                <span class="badge badge-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
+                                <span class="badge text-bg-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
                             {{/all_correct}}
                             {{#all_incorrect}}
-                                <span class="badge badge-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
+                                <span class="badge text-bg-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
                             {{/all_incorrect}}
                             {{#all_partial}}
-                                {{#score}}<span class="badge badge-warning badge-large">{{score}}%</span><br>{{/score}}
+                                {{#score}}<span class="badge text-bg-warning badge-large">{{score}}%</span><br>{{/score}}
                             {{/all_partial}}
                             {{/show-percentage-score}}
                         </th>
@@ -69,23 +69,23 @@
                                                 {{#input_error}}
                                                     <button
                                                         type="button"
-                                                        class="btn btn-xs btn-light border d-flex align-items-center text-danger"
-                                                        data-toggle="popover"
-                                                        data-html="true"
+                                                        class="btn btn-sm btn-light border d-flex align-items-center text-danger"
+                                                        data-bs-toggle="popover"
+                                                        data-bs-html="true"
                                                         title="Format Error"
-                                                        data-placement="auto"
-                                                        data-content="{{input_error}}"
+                                                        data-bs-placement="auto"
+                                                        data-bs-content="{{input_error}}"
                                                     >
-                                                        <span class="mr-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                                        <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                                     </button>
                                                 {{/input_error}}
                                             </span>
                                             {{#show-partial-score}}
                                             {{#correct}}
-                                                <span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                                <span class="badge text-bg-success"><i class="fa fa-check" aria-hidden="true"></i></span>
                                             {{/correct}}
                                             {{#incorrect}}
-                                                <span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                                <span class="badge text-bg-danger"><i class="fa fa-times" aria-hidden="true"></i></span>
                                             {{/incorrect}}
                                             {{/show-partial-score}}
                                         </div>
@@ -113,7 +113,7 @@
 {{#submission}}
     <div class="c-tbl-block">
         <div>
-            <table class="table table-striped table-bordered table-condensed cache-access-table">
+            <table class="table table-striped table-bordered table-sm cache-access-table">
                 <thead>
                     <tr>
                         <th style="padding-left: 10px; padding-right: 10px;">Access</th>
@@ -121,13 +121,13 @@
                         <th>Hit/Miss
                             {{#show-percentage-score}}
                             {{#all_correct}}
-                                <span class="badge badge-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
+                                <span class="badge text-bg-success badge-large"><i class="fa fa-check-circle" aria-hidden="true"></i> 100%</span><br>
                             {{/all_correct}}
                             {{#all_incorrect}}
-                                <span class="badge badge-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
+                                <span class="badge text-bg-danger badge-large"><i class="fa fa-times-circle" aria-hidden="true"></i> 0%</span><br>
                             {{/all_incorrect}}
                             {{#all_partial}}
-                                {{#score}}<span class="badge badge-warning badge-large">{{score}}%</span><br>{{/score}}
+                                {{#score}}<span class="badge text-bg-warning badge-large">{{score}}%</span><br>{{/score}}
                             {{/all_partial}}
                             {{/show-percentage-score}}
                         </th>
@@ -142,10 +142,10 @@
 
                                 {{#show-partial-score}}
                                 {{#correct}}
-                                    <span class="badge badge-success"><i class="fa fa-check" aria-hidden="true"></i></span>
+                                    <span class="badge text-bg-success"><i class="fa fa-check" aria-hidden="true"></i></span>
                                 {{/correct}}
                                 {{#incorrect}}
-                                    <span class="badge badge-danger"><i class="fa fa-times" aria-hidden="true"></i></span>
+                                    <span class="badge text-bg-danger"><i class="fa fa-times" aria-hidden="true"></i></span>
                                 {{/incorrect}}
                                 {{/show-partial-score}}
                             </td>
@@ -166,7 +166,7 @@
 {{#answer}}
     <div class="c-tbl-block">
         <div>
-            <table class="table table-striped table-bordered table-condensed cache-access-table">
+            <table class="table table-striped table-bordered table-sm cache-access-table">
                 <thead>
                     <tr>
                         <th style="padding-left: 10px; padding-right: 10px;">Access</th>
