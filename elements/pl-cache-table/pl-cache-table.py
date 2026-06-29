@@ -31,6 +31,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
         "tag-width",
         "show-partial-score",
         "show-percentage-score",
+        "read-only",
         "is-material",
         "weight",
     ]
@@ -124,6 +125,14 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
                     )
 
 
+def _is_read_only(element) -> bool:
+    return pl.get_boolean_attrib(
+        element,
+        "read-only",
+        pl.get_boolean_attrib(element, "is-material", IS_MATERIAL_DEFAULT),
+    )
+
+
 def render(element_html: str, data: pl.QuestionData) -> str:
 
     element = lxml.html.fragment_fromstring(element_html)
@@ -157,7 +166,7 @@ def render(element_html: str, data: pl.QuestionData) -> str:
     for i in range(num_ways):
         way_list.append({"number": i})
 
-    is_material = pl.get_boolean_attrib(element, "is-material", IS_MATERIAL_DEFAULT)
+    is_material = _is_read_only(element)
     show_data = pl.get_boolean_attrib(element, "show-data", SHOW_DATA_DEFAULT)
     show_dirty = pl.get_boolean_attrib(element, "show-dirty", SHOW_DIRTY_DEFAULT)
     show_valid = pl.get_boolean_attrib(element, "show-valid", SHOW_VALID_DEFAULT)
@@ -480,7 +489,7 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
 
     element = lxml.html.fragment_fromstring(element_html)
 
-    is_material = pl.get_boolean_attrib(element, "is-material", IS_MATERIAL_DEFAULT)
+    is_material = _is_read_only(element)
     if is_material:
         return
 
@@ -586,7 +595,7 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
 def grade(element_html: str, data: pl.QuestionData) -> None:
     element = lxml.html.fragment_fromstring(element_html)
 
-    is_material = pl.get_boolean_attrib(element, "is-material", IS_MATERIAL_DEFAULT)
+    is_material = _is_read_only(element)
     if is_material:
         return
 

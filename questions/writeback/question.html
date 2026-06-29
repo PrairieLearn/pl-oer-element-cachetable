@@ -1,6 +1,6 @@
 <pl-question-panel>
 <h2>Example Cache Table</h2>
-<p>This example sets the cache to a static table using the <code>is-material</code> attribute. It also illustrates the <code>show-dirty</code> attribute for simulating writeback caches.</p>
+<p>This example sets the cache to a static table using the <code>read-only</code> attribute. It also illustrates the <code>show-dirty</code> attribute for simulating writeback caches.</p>
 <p>Given a direct-mapped cache with <strong>{{params.sets}} sets</strong> of <strong>{{params.block_size}}-byte blocks</strong> and a main memory that has <strong>{{params.addr_bits}}-bit addresses</strong>.</p>
 
 <div class="container">
@@ -14,7 +14,7 @@
             display-base = "{{params.display_base}}"
             show-valid = "{{params.show_valid}}"
             show-dirty = "{{params.show_dirty}}"
-            is-material = "true"
+            read-only = "true"
       ></pl-cache-table>
     </div>
     <div class="col-sm-4">

@@ -47,5 +47,7 @@ data['params']['cache'] = [
 | `display-base` | string (default: `hex`) | Must be `hex` or `bin`. Changes the display format of tag, index, and offset to hex or binary, respectively. |
 | `show-partial-score` | boolean (default: `true`) | Shows block-by-block feedback via highlighting in `blocks` or `all-or-nothing` grading mode and cell-by-cell feedback via highlighting in `cells`. |
 | `show-percentage-score` | boolean (default: `true`) | Percentage score for the question is displayed as a badge. |
-| `is-material` | boolean (default: `false`) | When `false`, the cache is editable and the submitted answer must match the correct answer. When `true`, the cache is not editable and displays cache data stored in `data['params'][answers-name]`. |
+| `read-only` | boolean (default: `false`) | When `false`, the cache is editable and the submitted answer must match the correct answer. When `true`, the cache is not editable and displays cache data stored in `data['params'][answers-name]`. |
 | `weight` | integer (default: `1`) | Weight to use when computing a weighted average score over elements. |
+
+The legacy attribute name `is-material` is still accepted as an alias for `read-only`.
