@@ -120,7 +120,6 @@ def render(element_html: str, data: pl.QuestionData) -> str:
 
         access_data.append(access)
 
-    # print(cache_sets)
     correct = False
     partial = False
     incorrect = False

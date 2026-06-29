@@ -365,7 +365,6 @@ def render(element_html: str, data: pl.QuestionData) -> str:
 
         cache_sets.append(cache_set)
 
-    # print(cache_sets)
     correct = False
     partial = False
     incorrect = False
@@ -809,8 +808,6 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
             if lru_block_changed:
                 num_blocks_changed += 1
 
-    # print(f'num_cells: {num_cells}, num_cells_changed: {num_cells_changed}, changed_cells_correct: {changed_cells_correct}, same_cells_correct: {same_cells_correct}')
-    # print(f'num_blocks: {num_blocks}, num_blocks_changed: {num_blocks_changed}, changed_blocks_correct: {changed_blocks_correct}, same_blocks_correct: {same_blocks_correct}')
     if initial_cache == final_cache:
         if same_cells_correct == num_cells:
             data["partial_scores"][name] = {
