@@ -1,4 +1,3 @@
-
 import chevron
 import lxml.html
 import prairielearn as pl
@@ -28,12 +27,11 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
     name = pl.get_string_attrib(element, "answers-name")
     pl.check_answers_names(data, name)
 
-    try:
-        accesses = data["correct_answers"][name]
-    except AttributeError:
-        print(
+    if name not in data.get("correct_answers", {}):
+        raise ValueError(
             f"Sequence of cache accesses not found in data['correct_answers'][{name}]"
         )
+    accesses = data["correct_answers"][name]
 
     for i in range(len(accesses)):
         if not isinstance(accesses[i]["address"], str):

@@ -1,4 +1,3 @@
-
 import chevron
 import lxml.html
 import prairielearn as pl
@@ -59,14 +58,15 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
     if display_base != "hex" and display_base != "bin":
         raise ValueError('base must be "hex" or "bin"')
 
-    try:
-        data["params"][name]
-    except AttributeError:
-        print(f"Initial cache configuration not found in data['params'][{name}]")
-    try:
-        final_cache = data["correct_answers"][name]
-    except AttributeError:
-        print(f"Final cache configuration not found in data['correct_answers'][{name}]")
+    if name not in data.get("params", {}):
+        raise ValueError(
+            f"Initial cache configuration not found in data['params'][{name}]"
+        )
+    if name not in data.get("correct_answers", {}):
+        raise ValueError(
+            f"Final cache configuration not found in data['correct_answers'][{name}]"
+        )
+    final_cache = data["correct_answers"][name]
 
     allowed_characters = "0123456789abcdef"
 
@@ -76,7 +76,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
             try:
                 tag = final_cache[i]["tags"][j]
             except (KeyError, IndexError):
-                raise AttributeError("Tag value missing for index {i} and way{j}.")
+                raise AttributeError(f"Tag value missing for index {i} and way {j}.")
 
             clean_tag = tag.lower().replace("0x", "").replace(" ", "")
             if not all(char in allowed_characters for char in clean_tag):
@@ -88,11 +88,13 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
                 try:
                     valid = final_cache[i]["valid"][j]
                 except (KeyError, IndexError):
-                    raise AttributeError("Tag value missing for index {i} and way{j}.")
+                    raise AttributeError(
+                        f"Valid value missing for index {i} and way {j}."
+                    )
 
                 clean_valid = valid.lower().replace(" ", "")
                 if not all(char in "01" for char in clean_valid):
-                    raise ValueError("Valid for index {i} and way {j} must be 0 or 1.")
+                    raise ValueError(f"Valid for index {i} and way {j} must be 0 or 1.")
 
             if show_data:
                 for k in range(2**block_bits):
@@ -100,10 +102,10 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
                         bdata = final_cache[i]["blocks"][j][k]
                     except (KeyError, IndexError):
                         raise AttributeError(
-                            "Data value missing for index {i} and way{j} and offset{k}."
+                            f"Data value missing for index {i} and way {j} and offset {k}."
                         )
 
-                    clean_data = bdata.replace("0x", "").replace(" ", "").lower()
+                    clean_data = bdata.lower().replace("0x", "").replace(" ", "")
                     if not all(char in allowed_characters for char in clean_data):
                         raise ValueError(
                             'Data for index {i} and way {j} and offset {k} must not have characters besides 0-9, a-f, and "0x".'
@@ -113,7 +115,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
                 try:
                     lru = final_cache[i]["lru"][j]
                 except (KeyError, IndexError):
-                    raise AttributeError("LRU value missing for index {i}.")
+                    raise AttributeError(f"LRU value missing for index {i}.")
 
                 clean_lru = lru.replace(" ", "").lower()
                 if not all(char in allowed_characters for char in clean_lru):
@@ -236,7 +238,11 @@ def render(element_html: str, data: pl.QuestionData) -> str:
                     way["tag_incorrect"] = True
 
             block_score = data["partial_scores"].get(f"{name}_block{i}_{j}")
-            if block_score is not None and grade_mode == "blocks" and show_partial_score:
+            if (
+                block_score is not None
+                and grade_mode == "blocks"
+                and show_partial_score
+            ):
                 if block_score["score"] == 1:
                     way["block_correct"] = True
                 else:
@@ -328,7 +334,11 @@ def render(element_html: str, data: pl.QuestionData) -> str:
                     "lru_incorrect": False,
                 }
                 lru_score = data["partial_scores"].get(f"{name}_lru{i}_{j}")
-                if lru_score is not None and grade_mode != "blocks" and show_partial_score:
+                if (
+                    lru_score is not None
+                    and grade_mode != "blocks"
+                    and show_partial_score
+                ):
                     if lru_score["score"] == 1:
                         lru_state["lru_correct"] = True
                     else:
@@ -339,7 +349,11 @@ def render(element_html: str, data: pl.QuestionData) -> str:
                 lru.append(lru_state)
 
             block_score = data["partial_scores"].get(f"{name}_lru_block{i}")
-            if block_score is not None and grade_mode == "blocks" and show_partial_score:
+            if (
+                block_score is not None
+                and grade_mode == "blocks"
+                and show_partial_score
+            ):
                 if block_score["score"] == 1:
                     cache_set["all_lru_correct"] = True
                 else:
@@ -597,7 +611,6 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
     show_data = pl.get_boolean_attrib(element, "show-data", SHOW_DATA_DEFAULT)
 
     weight = int(pl.get_string_attrib(element, "weight", WEIGHT_DEFAULT))
-
 
     num_blocks = num_sets * (num_ways)
     if num_ways > 1:
