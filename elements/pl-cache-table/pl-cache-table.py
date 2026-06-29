@@ -78,7 +78,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
             except (KeyError, IndexError):
                 raise AttributeError("Tag value missing for index {i} and way{j}.")
 
-            clean_tag = tag.replace("0x", "").replace(" ", "").lower()
+            clean_tag = tag.lower().replace("0x", "").replace(" ", "")
             if not all(char in allowed_characters for char in clean_tag):
                 raise ValueError(
                     'Tag for index {i} and way {j} must not have characters besides 0-9, a-f, and "0x".'
@@ -90,7 +90,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
                 except (KeyError, IndexError):
                     raise AttributeError("Tag value missing for index {i} and way{j}.")
 
-                clean_valid = valid.replace(" ", "").lower()
+                clean_valid = valid.lower().replace(" ", "")
                 if not all(char in "01" for char in clean_valid):
                     raise ValueError("Valid for index {i} and way {j} must be 0 or 1.")
 
@@ -489,8 +489,8 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
     for i in range(num_sets):
         for j in range(num_ways):
             # remove white space from students' answers
-            tag = data["raw_submitted_answers"].get(f"{name}_tag{i}_{j}")
-            clean_tag = tag.replace("0x", "").replace(" ", "").lower()
+            tag = data["raw_submitted_answers"].get(f"{name}_tag{i}_{j}", "")
+            clean_tag = tag.lower().replace("0x", "").replace(" ", "")
             if clean_tag == "" and data["params"][name][i]["tags"][j] != "":
                 data["format_errors"][f"{name}_tag{i}_{j}"] = (
                     "Tag cannot be empty if it starts with a value. Initial value has been re-entered"
@@ -504,8 +504,8 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
                 data["submitted_answers"][f"{name}_tag{i}_{j}"] = clean_tag
 
             if show_valid:
-                valid = data["raw_submitted_answers"].get(f"{name}_valid{i}_{j}")
-                clean_valid = valid.replace(" ", "").lower()
+                valid = data["raw_submitted_answers"].get(f"{name}_valid{i}_{j}", "")
+                clean_valid = valid.lower().replace(" ", "")
                 if clean_valid == "" and data["params"][name][i]["valid"][j] != "":
                     data["format_errors"][f"{name}_valid{i}_{j}"] = (
                         "Valid bit cannot be empty if it starts with a value. Initial value has been re-entered"
@@ -518,8 +518,8 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
                     data["submitted_answers"][f"{name}_valid{i}_{j}"] = clean_valid
 
             if show_dirty:
-                dirty = data["raw_submitted_answers"].get(f"{name}_dirty{i}_{j}")
-                clean_dirty = dirty.replace(" ", "").lower()
+                dirty = data["raw_submitted_answers"].get(f"{name}_dirty{i}_{j}", "")
+                clean_dirty = dirty.lower().replace(" ", "")
                 if clean_dirty == "" and data["params"][name][i]["dirty"][j] != "":
                     data["format_errors"][f"{name}_dirty{i}_{j}"] = (
                         "Valid bit cannot be empty if it starts with a value. Initial value has been re-entered"
@@ -533,8 +533,10 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
 
             if show_data:
                 for k in range(2**block_bits):
-                    bdata = data["raw_submitted_answers"].get(f"{name}_data{i}_{j}_{k}")
-                    clean_data = bdata.replace("0x", "").replace(" ", "").lower()
+                    bdata = data["raw_submitted_answers"].get(
+                        f"{name}_data{i}_{j}_{k}", ""
+                    )
+                    clean_data = bdata.lower().replace("0x", "").replace(" ", "")
                     if (
                         clean_data == ""
                         and data["params"][name][i]["blocks"][j][k] != ""
@@ -552,8 +554,8 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
                         )
 
             if num_ways > 1:
-                lru = data["raw_submitted_answers"].get(f"{name}_lru{i}_{j}")
-                clean_lru = lru.replace(" ", "").lower()
+                lru = data["raw_submitted_answers"].get(f"{name}_lru{i}_{j}", "")
+                clean_lru = lru.lower().replace(" ", "")
                 if clean_lru == "" and data["params"][name][i]["lru"][j] != "":
                     data["format_errors"][f"{name}_lru{i}_{j}"] = (
                         "Valid bit cannot be empty if it starts with a value. Initial value has been re-entered"
