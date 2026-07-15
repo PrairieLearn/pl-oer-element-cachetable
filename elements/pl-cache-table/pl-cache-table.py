@@ -82,7 +82,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
             clean_tag = tag.lower().replace("0x", "").replace(" ", "")
             if not all(char in allowed_characters for char in clean_tag):
                 raise ValueError(
-                    'Tag for index {i} and way {j} must not have characters besides 0-9, a-f, and "0x".'
+                    f'Tag for index {i} and way {j} must not have characters besides 0-9, a-f, and "0x".'
                 )
 
             if show_valid:
@@ -109,7 +109,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
                     clean_data = bdata.lower().replace("0x", "").replace(" ", "")
                     if not all(char in allowed_characters for char in clean_data):
                         raise ValueError(
-                            'Data for index {i} and way {j} and offset {k} must not have characters besides 0-9, a-f, and "0x".'
+                            f'Data for index {i} and way {j} and offset {k} must not have characters besides 0-9, a-f, and "0x".'
                         )
 
             if num_ways > 1:
@@ -121,7 +121,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
                 clean_lru = lru.replace(" ", "").lower()
                 if not all(char in allowed_characters for char in clean_lru):
                     raise ValueError(
-                        "LRU for index {i} must not have characters besides 0-9."
+                        f"LRU for index {i} must not have characters besides 0-9."
                     )
 
 
@@ -137,15 +137,14 @@ def render(element_html: str, data: pl.QuestionData) -> str:
 
     element = lxml.html.fragment_fromstring(element_html)
     name = pl.get_string_attrib(element, "answers-name")
-    # Get the output name
 
     show_partial_score = pl.get_boolean_attrib(
         element, "show-partial-score", SHOW_PARTIAL_SCORE_DEFAULT
-    )  # Default to False if not specified
+    )
 
     show_percentage_score = pl.get_boolean_attrib(
         element, "show-percentage-score", SHOW_PERCENTAGE_SCORE_DEFAULT
-    )  # Default to False if not specified
+    )
 
     # get number of sets
     set_bits = int(pl.get_string_attrib(element, "set-bits"))
@@ -219,12 +218,8 @@ def render(element_html: str, data: pl.QuestionData) -> str:
             valid_name = f"{name}_valid{i}_{j}"
             dirty_name = f"{name}_dirty{i}_{j}"
             way = {
-                "initial_tag": initial_cache[i]["tags"][
-                    j
-                ],  # update to include initial tag, raw_submitted_tag, and
-                "final_tag": final_cache[i]["tags"][
-                    j
-                ],  # update to include initial tag, raw_submitted_tag, and
+                "initial_tag": initial_cache[i]["tags"][j],
+                "final_tag": final_cache[i]["tags"][j],
                 "tag_name": tag_name,
                 "raw_sub_tag": data["raw_submitted_answers"].get(tag_name, None),
                 "tag_input_error": data["format_errors"].get(tag_name, None),
@@ -408,16 +403,9 @@ def render(element_html: str, data: pl.QuestionData) -> str:
     with open(CACHE_TABLE_MUSTACHE_TEMPLATE_NAME, "r", encoding="utf-8") as f:
         template = f.read()
     if data["panel"] == "question":
-        grading_text = "PLACEHOLDER"
-        info_params = {
-            "format": True,
-            "grading_text": grading_text,
-        }
-        info = chevron.render(template, info_params)
         html_params = {
             "question": True,
             "name": name,
-            "info": info,
             "uuid": pl.get_uuid(),
             "cache_sets": cache_sets,
             "num_sets": num_sets,

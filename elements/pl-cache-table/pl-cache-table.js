@@ -3,10 +3,11 @@ window.PLCacheTable = function (uuid, options) {
   // make the id of the element use query selector to choose the table reset button we are looking for
   this.element = document
     .querySelector('[data-table-uuid="' + uuid + '"]')
-    .closest(".c-tbl-block");
-  // If not found, print error to console
+    ?.closest(".c-tbl-block");
+  // If not found, print error to console and stop
   if (!this.element) {
-    console.log("cache couldn't be retreived", uuid);
+    console.error("cache couldn't be retrieved", uuid);
+    return;
   }
   // store prefill values immediately when page loads
   this.originalPrefills = {};
@@ -20,7 +21,6 @@ window.PLCacheTable = function (uuid, options) {
     console.error("Reset button not found for UUID:", uuid);
     return;
   }
-  //derived some of this code from script-editor (restoreoriginalbutton code)
   this.resetConfirmContainer = this.element.querySelector(
     ".reset-confirm-container"
   );
@@ -34,15 +34,15 @@ window.PLCacheTable = function (uuid, options) {
   }
 
   // limit buttons to table width
-  this.table = this.element.querySelector('table.cache-table');
-  this.resetContainer = this.element.querySelector('.reset-button-container');
-  
+  this.table = this.element.querySelector("table.cache-table");
+  this.resetContainer = this.element.querySelector(".reset-button-container");
+
   if (this.table && this.resetContainer) {
-    this.tableWidth = this.table.getBoundingClientRect().width; 
+    this.tableWidth = this.table.getBoundingClientRect().width;
     this.resetContainer.style.width = `${this.tableWidth}px`;
   }
 };
-//copy pasted this entire part from script editor for confirmation
+
 window.PLCacheTable.prototype.initResetButton = function () {
   this.resetButton.addEventListener("click", () => {
     this.resetButton.style.display = "none";
@@ -93,27 +93,13 @@ window.PLCacheTable.prototype.resetToPrefillValues = function () {
 
 // Initialize all cache inputs on page load
 document.addEventListener("DOMContentLoaded", function () {
-  // Debug info - log all available UUIDs
-  console.log(
-    "Available reset buttons:",
-    Array.from(document.querySelectorAll(".reset-button[data-table-uuid]")).map(
-      (el) => el.getAttribute("data-table-uuid")
-    )
-  );
-
-  // Try different selector strategies
   const resetButtons = document.querySelectorAll(
     ".reset-button[data-table-uuid]"
   );
 
-  if (resetButtons.length === 0) {
-    console.error("No reset buttons found on the page");
-  }
-
   resetButtons.forEach((button) => {
     try {
       const uuid = button.getAttribute("data-table-uuid");
-      console.log("Initializing PLCacheTable for UUID:", uuid);
       new window.PLCacheTable(uuid);
     } catch (e) {
       console.error("Error initializing cache input:", e);
